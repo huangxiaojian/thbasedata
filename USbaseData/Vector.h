@@ -140,7 +140,7 @@ public:
 
 	/**@brief Return the negative of this vector
 	* This simply negates each element */
-	inline Vector4& operator-()
+	/*inline Vector4& operator-()
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_XOR(m_vec, SIMDZEROMASK);
@@ -151,7 +151,7 @@ public:
 		m_scalar[2] = -m_scalar[2];
 		return *this;
 #endif
-	}
+	}*/
 
 	inline Vector4 operator-=(const Vector4& other)
 	{
