@@ -39,10 +39,10 @@ public:
 		Scalar m_scalar[4];
 	};
 
-	inline Scalar4 get() const { return m_vec; }
-	inline void set(Scalar4& v){ m_vec = v; }
+	TH_FORCE_INLINE Scalar4 get() const { return m_vec; }
+	TH_FORCE_INLINE void set(Scalar4& v){ m_vec = v; }
 
-	inline explicit Vector4()
+	TH_FORCE_INLINE explicit Vector4()
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_TO_VEC(1.0, 1.0, 1.0);
@@ -54,7 +54,7 @@ public:
 #endif
 	}
 
-	inline explicit Vector4(const Scalar x, const Scalar y)
+	TH_FORCE_INLINE explicit Vector4(const Scalar x, const Scalar y)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_TO_VEC(x, y, 0.0);
@@ -66,7 +66,7 @@ public:
 #endif
 	}
 
-	inline explicit Vector4(const Scalar x, const Scalar y, const Scalar z)
+	TH_FORCE_INLINE explicit Vector4(const Scalar x, const Scalar y, const Scalar z)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_TO_VEC(x, y, z);
@@ -78,7 +78,7 @@ public:
 #endif
 	}
 
-	inline explicit Vector4(const Scalar x, const Scalar y, const Scalar z, const Scalar w)
+	TH_FORCE_INLINE explicit Vector4(const Scalar x, const Scalar y, const Scalar z, const Scalar w)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_SET(x, y, z, w);
@@ -90,9 +90,9 @@ public:
 #endif
 	}
 
-	inline Vector4(const Vector4& other){ m_vec = other.m_vec; }
-	inline explicit Vector4(const Scalar4& other){ m_vec = other; }
-	inline explicit Vector4(const Scalar* m)
+	TH_FORCE_INLINE Vector4(const Vector4& other){ m_vec = other.m_vec; }
+	TH_FORCE_INLINE explicit Vector4(const Scalar4& other){ m_vec = other; }
+	TH_FORCE_INLINE explicit Vector4(const Scalar* m)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_SET(m[0], m[1], m[2], 0.0);
@@ -112,13 +112,13 @@ public:
 	friend Vector4 operator/(const Vector4& v1, const Scalar v2);
 	friend Vector4 operator-(const Vector4& v);
 
-	inline Vector4& operator=(const Vector4& other)
+	TH_FORCE_INLINE Vector4& operator=(const Vector4& other)
 	{
 		m_vec = other.m_vec;
 		return *this;
 	}
 
-	inline Vector4& operator=(const Scalar4& other)
+	TH_FORCE_INLINE Vector4& operator=(const Scalar4& other)
 	{
 		m_vec = other;
 		return *this;
@@ -126,21 +126,21 @@ public:
 
 	/**@brief Return the ith member of this vector
 	*/
-	inline Scalar& operator[](int i)
+	TH_FORCE_INLINE Scalar& operator[](int i)
 	{
 		return m_scalar[i];
 	}
 
 	/**@brief Return the ith member of this vector
 	*/
-	inline const Scalar& operator[](int i) const
+	TH_FORCE_INLINE const Scalar& operator[](int i) const
 	{
 		return m_scalar[i];
 	}
 
 	/**@brief Return the negative of this vector
 	* This simply negates each element */
-	/*inline Vector4& operator-()
+	/*TH_FORCE_INLINE Vector4& operator-()
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_XOR(m_vec, SIMDZEROMASK);
@@ -153,7 +153,7 @@ public:
 #endif
 	}*/
 
-	inline Vector4 operator-=(const Vector4& other)
+	TH_FORCE_INLINE Vector4 operator-=(const Vector4& other)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_SUB(m_vec, other.m_vec);
@@ -165,7 +165,7 @@ public:
 		return *this;
 	}
 
-	inline Vector4& operator+=(const Vector4& other)
+	TH_FORCE_INLINE Vector4& operator+=(const Vector4& other)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_ADD(m_vec, other.m_vec);
@@ -177,7 +177,7 @@ public:
 		return *this;
 	}
 
-	inline Vector4 operator*=(const Vector4& other)
+	TH_FORCE_INLINE Vector4 operator*=(const Vector4& other)
 	{
 #ifdef USE_SSE
 		m_vec = SIMD_MUL(m_vec, other.m_vec);
@@ -189,7 +189,7 @@ public:
 		return *this;
 	}
 
-	inline Vector4 operator/=(const Vector4& other)
+	TH_FORCE_INLINE Vector4 operator/=(const Vector4& other)
 	{
 #ifdef USE_SSE
 		Scalar4 v4 = SIMD_SET(other.m_scalar[0], other.m_scalar[1], other.m_scalar[2], 1);
@@ -202,7 +202,7 @@ public:
 		return *this;
 	}
 
-	inline Vector4 operator*=(const Scalar& v)
+	TH_FORCE_INLINE Vector4 operator*=(const Scalar& v)
 	{
 #ifdef USE_SSE
 		Vector4 other(v, v, v);
@@ -215,7 +215,7 @@ public:
 		return *this;
 	}
 
-	inline Vector4 operator/=(const Scalar& v)
+	TH_FORCE_INLINE Vector4 operator/=(const Scalar& v)
 	{
 #ifdef USE_SSE
 		Scalar4 v4 = SIMD_SET(v, v, v, 1);
@@ -230,7 +230,7 @@ public:
 
 	/**@brief Return the dot product
 	 * @param other: The other vector in the dot product */
-	inline Scalar dot(const Vector4& other) const
+	TH_FORCE_INLINE Scalar dot(const Vector4& other) const
 	{
 #ifdef USE_SSE
 		Scalar4 vd = SIMD_MUL(m_vec, other.m_vec);
@@ -241,19 +241,19 @@ public:
 	}
 
 	/**@brief Return the length of the vector squared */
-	inline Scalar length2() const
+	TH_FORCE_INLINE Scalar length2() const
 	{
 		return dot(*this);
 	}
 
 	/**@brief Return the length of the vector */
-	inline Scalar length() const
+	TH_FORCE_INLINE Scalar length() const
 	{
 		return thSqrt(length2());
 	}
 
 	/**@brief Return the norm (length) of the vector */
-	inline Scalar norm() const
+	TH_FORCE_INLINE Scalar norm() const
 	{
 		return length();
 	}
@@ -356,7 +356,7 @@ public:
 
 	/**@brief Return the cross product between this and another vector
 	* @param other The other vector */
-	inline Vector4 cross(const Vector4& other) const
+	TH_FORCE_INLINE Vector4 cross(const Vector4& other) const
 	{
 #ifdef USE_SSE
 		Scalar4	T, V;
@@ -405,24 +405,24 @@ public:
 
 	/**@brief Return the axis with the smallest value
 	* Note return values are 0,1,2 for x, y, or z */
-	inline int minAxis() const
+	TH_FORCE_INLINE int minAxis() const
 	{
 		return m_scalar[0] < m_scalar[1] ? (m_scalar[0] < m_scalar[2] ? 0 : 2) : (m_scalar[1] < m_scalar[2] ? 1 : 2);;
 	}
 
 	/**@brief Return the axis with the largest value
 	* Note return values are 0,1,2 for x, y, or z */
-	inline int maxAxis() const
+	TH_FORCE_INLINE int maxAxis() const
 	{
 		return m_scalar[0] < m_scalar[1] ? (m_scalar[1] <m_scalar[2] ? 2 : 1) : (m_scalar[0] <m_scalar[2] ? 2 : 0);
 	}
 
-	inline int furthestAxis() const
+	TH_FORCE_INLINE int furthestAxis() const
 	{
 		return absolute().minAxis();
 	}
 
-	inline int closestAxis() const
+	TH_FORCE_INLINE int closestAxis() const
 	{
 		return absolute().maxAxis();
 	}
@@ -476,13 +476,13 @@ public:
 	}
 
 	/**@brief Return the x value */
-	inline const Scalar& x() const { return m_scalar[0]; }
+	TH_FORCE_INLINE const Scalar& x() const { return m_scalar[0]; }
 	/**@brief Return the y value */
-	inline const Scalar& y() const { return m_scalar[1]; }
+	TH_FORCE_INLINE const Scalar& y() const { return m_scalar[1]; }
 	/**@brief Return the z value */
-	inline const Scalar& z() const { return m_scalar[2]; }
+	TH_FORCE_INLINE const Scalar& z() const { return m_scalar[2]; }
 	/**@brief Return the w value */
-	//inline const Scalar& w() const { return m_scalar[3]; }
+	//TH_FORCE_INLINE const Scalar& w() const { return m_scalar[3]; }
 
 
 	//TODO
@@ -563,7 +563,7 @@ public:
 		return m_scalar[0] == Scalar(0) && m_scalar[1] == Scalar(0) && m_scalar[2] == Scalar(0);
 	}
 
-	inline void print()
+	TH_FORCE_INLINE void print()
 	{
 		std::cout << m_scalar[0] << ", " << m_scalar[1]
 			<< ", " << m_scalar[2] << std::endl;
@@ -578,13 +578,16 @@ public:
 	}
 
 	/* create a vector as  btVector3( this->dot( btVector3 v0 ), this->dot( btVector3 v1), this->dot( btVector3 v2 ))  */
-	inline Vector4  dot3(const Vector4 &v0, const Vector4 &v1, const Vector4 &v2) const
+	TH_FORCE_INLINE Vector4  dot3(const Vector4 &v0, const Vector4 &v1, const Vector4 &v2) const
 	{
 		return Vector4(dot(v0), dot(v1), dot(v2));
 	}
 
 
 };
+
+typedef Vector4 thPoint;
+typedef Vector4 Vector3;
 
 //friend function for Vector4
 //+, -, *, /, *(scalar), /(scalar)
@@ -599,7 +602,7 @@ Vector4 operator-(const Vector4& v)
 #endif
 }
 
-inline Vector4 operator+(const Vector4& v1, const Vector4& v2)
+TH_FORCE_INLINE Vector4 operator+(const Vector4& v1, const Vector4& v2)
 {
 #ifdef USE_SSE
 	Scalar4 vec = SIMD_ADD(v1.m_vec, v2.m_vec);
@@ -610,7 +613,7 @@ inline Vector4 operator+(const Vector4& v1, const Vector4& v2)
 #endif
 }
 
-inline Vector4 operator-(const Vector4& v1, const Vector4& v2)
+TH_FORCE_INLINE Vector4 operator-(const Vector4& v1, const Vector4& v2)
 {
 #ifdef USE_SSE
 	Scalar4 vec = SIMD_SUB(v1.m_vec, v2.m_vec);
@@ -621,7 +624,7 @@ inline Vector4 operator-(const Vector4& v1, const Vector4& v2)
 #endif
 }
 
-inline Vector4 operator*(const Vector4& v1, const Vector4& v2)
+TH_FORCE_INLINE Vector4 operator*(const Vector4& v1, const Vector4& v2)
 {
 #ifdef USE_SSE
 	Scalar4 vec = SIMD_MUL(v1.m_vec, v2.m_vec);
@@ -632,7 +635,7 @@ inline Vector4 operator*(const Vector4& v1, const Vector4& v2)
 #endif
 }
 
-inline Vector4 operator/(const Vector4& v1, const Vector4& v2)
+TH_FORCE_INLINE Vector4 operator/(const Vector4& v1, const Vector4& v2)
 {
 #ifdef USE_SSE
 	Scalar4 vec = SIMD_DIV(v1.m_vec, v2.m_vec);
@@ -643,7 +646,7 @@ inline Vector4 operator/(const Vector4& v1, const Vector4& v2)
 #endif
 }
 
-inline Vector4 operator*(const Vector4& v1, const Scalar v2)
+TH_FORCE_INLINE Vector4 operator*(const Vector4& v1, const Scalar v2)
 {
 #ifdef USE_SSE
 	Vector4 v(v2, v2, v2);
@@ -654,7 +657,7 @@ inline Vector4 operator*(const Vector4& v1, const Scalar v2)
 #endif
 }
 
-inline Vector4 operator/(const Vector4& v1, const Scalar v2)
+TH_FORCE_INLINE Vector4 operator/(const Vector4& v1, const Scalar v2)
 {
 #ifdef USE_SSE
 	Vector4 v(v2, v2, v2);
